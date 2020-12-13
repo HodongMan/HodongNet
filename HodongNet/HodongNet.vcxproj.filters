@@ -17,9 +17,24 @@
     <ClInclude Include="Packet.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="NetworkInitializer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Socket.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeSocket.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Packet.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkInitializer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Socket.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
