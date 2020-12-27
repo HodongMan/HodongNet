@@ -134,13 +134,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="IPEndpoint.h" />
     <ClInclude Include="NetworkInitializer.h" />
     <ClInclude Include="Packet.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Socket.h" />
+    <ClInclude Include="StringUtil.h" />
     <ClInclude Include="TypeSocket.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="IPEndPoint.cpp" />
     <ClCompile Include="NetworkInitializer.cpp" />
     <ClCompile Include="Packet.cpp" />
     <ClCompile Include="Socket.cpp" />

@@ -26,6 +26,12 @@
     <ClInclude Include="TypeSocket.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="IPEndpoint.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtil.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Packet.cpp">
@@ -35,6 +41,9 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Socket.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="IPEndPoint.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

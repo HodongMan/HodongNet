@@ -15,5 +15,10 @@ enum class IPVersion
 	IPv6,
 };
 
+enum class SocketOption
+{
+	TCPNoDelay,
+	IPv6Only,
+};
 
 using SocketHandle = SOCKET;
