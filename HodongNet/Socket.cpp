@@ -12,6 +12,12 @@ Socket::Socket( void )
 
 }
 
+Socket::Socket( IPVersion ipVersion, SocketHandle handle )
+	: _ipVersion{ ipVersion }
+	, _handle{ handle }
+{
+}
+
 Socket::~Socket( void )
 {
 
@@ -76,6 +82,89 @@ bool Socket::bind( const IPEndPoint & endPoint) noexcept
 	else
 	{
 
+	}
+
+	return true;
+}
+
+bool Socket::listen(const IPEndPoint & endPoint, const int backlog) noexcept
+{
+	if ( IPVersion::IPv6 == _ipVersion )
+	{
+		if ( false == setSocketOption( SocketOption::IPv6Only, FALSE ) )
+		{
+			return false;
+		}
+	}
+
+	if ( false == bind( endPoint ) )
+	{
+		return false;
+	}
+
+	int result = ::listen( _handle, backlog );
+	if ( 0 != result )
+	{
+		const int error = WSAGetLastError();
+
+		return false;
+	}
+
+	return true;
+}
+
+bool Socket::accept( Socket& outSocket, IPEndPoint* endpoint ) noexcept
+{
+	assert( ( IPVersion::IPv4  == _ipVersion )  || ( IPVersion::IPv6 == _ipVersion ) );
+
+	if ( IPVersion::IPv4  == _ipVersion )
+	{
+		sockaddr_in addr = {};
+		int len = sizeof( sockaddr_in );
+
+		SocketHandle acceptedConnectionHandle = ::WSAAccept( _handle, (sockaddr*)(&addr), &len, nullptr, NULL );
+		if ( INVALID_SOCKET == INVALID_SOCKET )
+		{
+			int error = WSAGetLastError();
+
+			return false;
+		}
+
+		if ( nullptr != endpoint)
+		{
+			*endpoint = IPEndPoint( (sockaddr*)&addr );
+		}
+
+		outSocket = Socket(IPVersion::IPv4, acceptedConnectionHandle);
+	}
+	else
+	{
+
+	}
+
+	return true;
+}
+
+bool Socket::connect( const IPEndPoint& endpoint ) noexcept
+{
+	assert( _ipVersion == endpoint.getIPVersion() );
+
+	int result = 0;
+	if ( IPVersion::IPv4 == _ipVersion )
+	{
+		const sockaddr_in addr = endpoint.getSockaddrIPv4();
+		result = ::WSAConnect( _handle, reinterpret_cast<const sockaddr*>( &addr ), sizeof( sockaddr_in ), nullptr, nullptr, nullptr, nullptr );
+	}
+	else
+	{
+
+	}
+
+	if ( 0 != result )
+	{
+		int error = WSAGetLastError();
+		
+		return false;
 	}
 
 	return true;
